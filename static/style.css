@@ -1,0 +1,58 @@
+.title{
+    font-size: 400%;
+    color: white;
+    margin: 2%;
+
+}
+.topnav a {
+	display:inline-block;
+	float: top;
+	color: #000000;
+	text-align: center;
+	padding: 20px 15px;
+	text-decoration: none;
+	font-size: 20px;
+}
+.topnav a:hover {
+  background-color: #000000;
+  color: white;
+}
+.stats{
+  font-family: Trebuchet MS;
+  text-align: center;
+  font-size: 200%;
+}
+.statdata{
+  
+  font-size: 120%;
+}
+.home{
+
+    background-color: darkcyan;
+    color: white;
+}
+
+.data{
+
+  margin: 5%;
+}
+.oscar{
+
+ width:50%;
+  height: auto;
+  margin: 5%;
+}
+.movie{
+    width:80%;
+    height: auto;
+    margin: 5%;
+}
+.intro{
+    font-size: 150%;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: white;
+}
+.hide-me{
+    visibility: hidden;
+    display-value: none;
+}
