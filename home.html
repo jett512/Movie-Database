@@ -1,0 +1,126 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+{% block title %}Home{% endblock %}
+{% endblock %}
+
+
+{% block content %}
+<h2>Home Page</h2>
+<p>Welcome back, {{ username }}!</p>
+
+
+    <form action="{{ url_for("search")}}" method="post">
+    <input type="text" placeholder="Search.." name = "searcher">
+    <button type="submit">GO</button>
+    </form>
+
+    <p>SEARCH RESULTS: <br>
+        {{ searchedMovies }}
+    </p>
+
+    <!-- Define a bootstrap grid -->
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <div id="options" class="col-sm-2 p-3 bg-primary text-white"></div>
+        <div id="mlist" class="col-sm-10 p-3 bg-dark text-white"></div>
+      </div>
+    </div>
+
+
+    {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Javascript to create a clickable button of each category -->
+    <script type="text/javascript">
+    var bt, bt_text, op;
+
+    <!-- Get the list of categories into javascript string and remove unwanted characters -->
+    var str =  "{{ categories | replace("'","") | replace("[","") | replace("]","") }}";
+
+    <!-- Convert the category string into a list -->
+    const cat_list = str.split(",");
+    var br1, row, col;
+
+    <!-- Use DOM to create a HTML button, add class and click event for each category -->
+    for (let i=0; i< cat_list.length; i++)
+    {
+        row = document.createElement("div");
+        row.className = "row mt-3";
+        col = document.createElement("div");
+        col.className = "col";
+        b1 = document.createElement('button');
+        b1.className = "btn btn-success";
+        bt_text = document.createTextNode(cat_list[i]);
+        b1.appendChild(bt_text);
+        b1.addEventListener('click', function(){displaymovies(this.innerText);}, false);
+        col.appendChild(b1);
+        row.appendChild(col);
+        op = document.getElementById("options");
+        op.appendChild(row);
+    }
+
+    <!-- Function to display movies of a category when a user click on the category button -->
+    function displaymovies(btext)
+    {
+        var mov_list = JSON.parse({{ movies | tojson }});
+        var num_cat = {{ num_categories }};
+        op = document.getElementById("mlist");
+        op.innerHTML = " ";
+        for(let i=0; i < num_cat; i++)
+        {
+            <!-- Loop through the movie list to extract 100 movies of a category -->
+            if (btext == mov_list[i][0])
+            {
+                <!-- Use DOM to create HTML elements <P> and <ul><li> to display movie information -->
+                for(let j=1; j < 100; j++)
+                {
+                    row = document.createElement("div");
+                    row.className = "row mt-3";
+                    col = document.createElement("div");
+                    col.className = "col";
+                    p = document.createElement('a');
+                    //p.className = "btn btn-warning";
+
+                    <!-- Get the title of a movie -->
+                    p_text = document.createTextNode(mov_list[i][j][0]);
+                    p.appendChild(p_text);
+                    if(i == 0){
+                        p.href = '{{ url_for( 'actionTask' ) }}';
+                    }
+                    if(i == 1){
+                        p.href = '{{ url_for( 'dramaTask' ) }}';
+                    }
+                    if(i == 2){
+                        p.href = '{{ url_for( 'thrillerTask' ) }}';
+                    }
+                    if(i == 3){
+                        p.href = '{{ url_for( 'comedyTask' ) }}';
+                    }
+                    ul = document.createElement('ul');
+                    li1 = document.createElement('li');
+                    li2 = document.createElement('li');
+
+                    <!-- Get the year and cast of a movie -->
+                    li1_text = document.createTextNode(mov_list[i][j][1]);
+                    li2_text = document.createTextNode(mov_list[i][j][2]);
+                    li1.appendChild(li1_text);
+                    li2.appendChild(li2_text);
+                    ul.appendChild(li1);
+                    ul.appendChild(li2);
+                    col.appendChild(p);
+                    col.appendChild(ul);
+                    row.appendChild(col);
+                    op.appendChild(row);
+                }
+            }
+        }
+
+    }
+
+
+    </script>
+{% endblock %}
+
+{% endblock %}
+

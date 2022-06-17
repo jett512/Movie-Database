@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h2>Profile Page</h2>
+<div>
+    <p>Your account details are below:</p>
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td>{{ user[3] }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ user[2] }}</td>
+        </tr>
+    </table>
+    <br>
+    <p>Watch History</p>
+    <p>Action Movies:</p>
+    <p>{{ movieCount[0] }}</p>
+    <p>Drama Movies:</p>
+    <p>{{ movieCount[1] }}</p>
+    <p>Thriller Movies:</p>
+    <p>{{ movieCount[2] }}</p>
+    <p>Comedy Movies:</p>
+    <p>{{ movieCount[3] }}</p>
+<br>
+<p>Search History:</p>
+<p>{{ history }}</p>
+
+</div>
+{% endblock %}
